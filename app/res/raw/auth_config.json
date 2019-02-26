@@ -1,8 +1,8 @@
 {
-  "client_id": "",
+  "client_id": "digital-health-passport",
   "redirect_uri": "net.openid.appauthdemo:/oauth2redirect",
-  "authorization_scope": "openid email profile",
-  "discovery_uri": "",
+  "authorization_scope": "openid profile",
+  "discovery_uri": "https://auth.sandpit.signin.nhs.uk/.well-known/openid-configuration",
   "authorization_endpoint_uri": "",
   "token_endpoint_uri": "",
   "registration_endpoint_uri": "",
