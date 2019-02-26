@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
-apply plugin: 'checkstyle'
-apply from: '../config/android-common.gradle'
-apply from: '../config/keystore.gradle'
 
 android {
+    compileSdkVersion 28
     defaultConfig {
-        applicationId 'net.openid.appauthdemo'
-        project.archivesBaseName = 'appauth-demoapp'
+        applicationId "net.openid.appauthdemo"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
         vectorDrawables.useSupportLibrary = true
 
         // Make sure this is consistent with the redirect URI used in res/raw/auth_config.json,
@@ -15,43 +16,27 @@ android {
                 'appAuthRedirectScheme': 'net.openid.appauthdemo'
         ]
     }
-
-    signingConfigs {
-        debugAndRelease {
-            storeFile file("${rootDir}/appauth.keystore")
-            storePassword "appauth"
-            keyAlias "appauth"
-            keyPassword "appauth"
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     buildTypes {
-        debug {
-            signingConfig signingConfigs.debugAndRelease
-        }
         release {
-            signingConfig signingConfigs.debugAndRelease
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 }
-
-project.ext.glideVersion = '4.7.1'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':library')
-    implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
-    implementation "com.android.support:design:${rootProject.supportLibVersion}"
-    implementation "com.github.bumptech.glide:glide:${project.glideVersion}"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.browser:browser:1.0.0'
     implementation 'com.squareup.okio:okio:1.14.1'
     implementation 'joda-time:joda-time:2.10'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
 
-    annotationProcessor "com.github.bumptech.glide:compiler:${project.glideVersion}"
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    annotationProcessor 'androidx.annotation:annotation:1.0.2'
 }
-
-apply from: '../config/style.gradle'
